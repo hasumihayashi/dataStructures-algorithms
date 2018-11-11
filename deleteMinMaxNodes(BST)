@@ -1,0 +1,57 @@
+/*
+Delete Min/Max Nodes (Binary Search Tree)
+function takes in a this.val and this.parent
+if(no left) {
+  delete that node by setting its parent's left to null
+  this.parent.left = null;
+}
+if(left exists) {
+  traverse left
+}
+ */
+
+
+BST.prototype.deleteMin = function(parent) {
+  if(!this.left && !this.right) {
+    if(parent) {
+      parent.left = null;
+    } else {
+      this.value = null; //we want to addNodes later
+    }
+  }
+  else if(!this.left && this.right) {
+    if(parent) {
+      parent.left = this.right;
+    } else {
+      this.value = this.right.value;
+      this.right = this.right.right;
+    }
+  }
+  //go left until left is null
+  if(this.left) {
+    this.left.deleteMin(this);
+  }
+}
+
+BST.prototype.deleteMax = function(parent) {
+  if(!this.left && !this.right) {
+    if(parent) {
+      parent.right = null;
+    } else {
+      this.value = null; //we want to addNodes later
+    }
+  }
+  else if(!this.right && this.left) {
+    if(parent) {
+      parent.right = this.right;
+    } else {
+      this.value = this.left.value;
+      this.left = this.left.left;
+    }
+  }
+  //go left until left is null
+  if(this.right) {
+    this.right.deleteMax(this);
+  }
+}
+
